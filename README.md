@@ -1,17 +1,20 @@
 ## Prerequisites
 
 - terraform >= v1.0
+- aws-cli
+- kubectl
+- helm
 
 ## Run stuff
 
-VPC
+### 1. VPC
 
 ```bash
 terraform -chdir=01_vpc init
 terraform -chdir=01_vpc apply
 ```
 
-EKS
+### 2. EKS
 
 Might have to be applied 2-3 times until it reaches `No changes. Your infrastructure matches the configuration.`
 
@@ -23,3 +26,15 @@ export TF_VAR_vpc_subnet_ids=$(terraform -chdir=01_vpc output -json vpc_private_
 export TF_VAR_vpc_id=$(terraform -chdir=01_vpc output -raw vpc_id)
 terraform -chdir=02_eks apply
 ```
+
+#### 2.1. Connect to Cluster
+
+Once set-up, you can use the kubeconfig file to interact with the EKS cluster
+
+```bash
+export VAR_REGION=$(terraform -chdir=02_eks output -raw region)
+export VAR_CLUSTER_NAME=$(terraform -chdir=02_eks output -raw cluster_name)
+aws eks --region $VAR_REGION update-kubeconfig --name $VAR_CLUSTER_NAME
+```
+
+

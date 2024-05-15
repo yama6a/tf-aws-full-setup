@@ -5,7 +5,7 @@ variable "vpc_name" {
 }
 
 variable "tags" {
-  description = "Tags to be attached to all resources"
+  description = "Tags to be attached to all AWS resources"
   type        = map(string)
   default     = { "env" = "sandbox" }
 }

@@ -1,13 +1,13 @@
-#output "cluster_id" {
-#  description = "EKS cluster ID."
-#  value       = module.eks.cluster_id
-#}
-#
-#output "cluster_name" {
-#  description = "EKS cluster Name."
-#  value       = var.cluster_name
-#}
-#
+output "region" {
+  description = "AWS region."
+  value       = data.aws_region.current.name
+}
+
+output "cluster_name" {
+  description = "EKS cluster Name."
+  value       = var.cluster_name
+}
+
 #output "cluster_arn" {
 #  description = "EKS cluster ARN."
 #  value       = module.eks.cluster_arn

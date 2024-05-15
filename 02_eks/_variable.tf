@@ -20,18 +20,28 @@ variable "instance_type" {
   default     = "t3.medium"
 }
 
+variable "min_node_count" {
+  description = "Minimum number of nodes in the cluster"
+  type        = number
+  default     = 1
+  validation {
+    condition = var.min_node_count > 0
+    error_message = "min_node_count must be greater than 0"
+  }
+}
+
 variable "max_node_count" {
   description = "Maximum number of nodes in the cluster"
   type        = number
   default     = 1
   validation {
     condition = var.max_node_count > 0
-    error_message = "max_node_count must be greater than 0"
+    error_message = "max_node_count must be greater than 0 and greater than or equal to min_node_count"
   }
 }
 
 variable "tags" {
-  description = "Tags to be attached to all cluster resources"
+  description = "Tags to be attached to all AWS resources"
   type        = map(string)
   default     = { env = "sandbox" }
 }

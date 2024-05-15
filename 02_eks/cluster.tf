@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 module "eks" {
   source  = "registry.terraform.io/terraform-aws-modules/eks/aws"
   version = "~> 20.0" # sync with eks_managed_node_group module version in node_group.tf
@@ -5,6 +7,9 @@ module "eks" {
   cluster_name    = var.cluster_name
   cluster_version = "1.29"
   tags            = var.tags
+
+  // without this, nobody can do anything in the cluster, i.e. there's no admin user.
+  enable_cluster_creator_admin_permissions = true
 
   # networking
   vpc_id                          = var.vpc_id
@@ -17,8 +22,6 @@ module "eks" {
   kms_key_aliases           = ["alias/eks_cluster_secrets_key"]
 
   cluster_addons = {
-    coredns    = { most_recent = true }
-    kube-proxy = { most_recent = true }
     vpc-cni    = {
       most_recent          = true
       before_compute       = true

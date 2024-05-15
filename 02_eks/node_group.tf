@@ -21,7 +21,7 @@ module "eks_managed_node_group" {
   vpc_security_group_ids            = [module.eks.node_security_group_id,]
 
   update_config = { max_unavailable = 1 }
-  desired_size  = 1
-  min_size      = 1
+  desired_size  = var.min_node_count
+  min_size      = var.min_node_count
   max_size      = var.max_node_count
 }

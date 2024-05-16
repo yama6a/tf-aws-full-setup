@@ -8,6 +8,16 @@ output "cluster_name" {
   value       = var.cluster_name
 }
 
+output "oidc_arn" {
+  description = "The ARN of the IAM OpenID Connect provider."
+  value       = module.eks.oidc_provider_arn
+}
+
+output "oidc_url" {
+  description = "The URL of the IAM OpenID Connect provider."
+  value       = module.eks.oidc_provider
+}
+
 #output "cluster_arn" {
 #  description = "EKS cluster ARN."
 #  value       = module.eks.cluster_arn
@@ -21,14 +31,4 @@ output "cluster_name" {
 #output "cluster_endpoint" {
 #  description = "Endpoint for EKS control plane."
 #  value       = module.eks.cluster_endpoint
-#}
-#
-#output "oidc_arn" {
-#  description = "The ARN of the IAM OpenID Connect provider."
-#  value       = module.eks.oidc_provider_arn
-#}
-#
-#output "oidc_url" {
-#  description = "The URL of the IAM OpenID Connect provider."
-#  value       = module.eks.oidc_provider
 #}

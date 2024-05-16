@@ -8,3 +8,13 @@ variable "tags" {
   type        = map(string)
   default     = { env = "sandbox" }
 }
+
+variable "oidc_url" {
+  description = "The URL of the IAM OpenID Connect provider."
+  type        = string
+}
+
+variable "oidc_arn" {
+  description = "The ARN of the IAM OpenID Connect provider."
+  type        = string
+}

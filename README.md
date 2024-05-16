@@ -37,4 +37,14 @@ export VAR_CLUSTER_NAME=$(terraform -chdir=02_eks output -raw cluster_name)
 aws eks --region $VAR_REGION update-kubeconfig --name $VAR_CLUSTER_NAME
 ```
 
+### 3. Controllers & Operators
 
+```bash
+terraform -chdir=03_controllers init
+
+# Environment variables prefixed with TF_VAR_ are auto-passed to terraform as tf-vars
+export TF_VAR_cluster_name=$(terraform -chdir=02_eks output -raw cluster_name)
+export TF_VAR_oidc_url=$(terraform -chdir=02_eks output -raw oidc_url)
+export TF_VAR_oidc_arn=$(terraform -chdir=02_eks output -raw oidc_arn)
+terraform -chdir=03_controllers apply
+```
